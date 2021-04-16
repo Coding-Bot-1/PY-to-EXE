@@ -1,3 +1,6 @@
+# Made by person569
+# https://github.com/person569/PY-to-EXE
+
 from tkinter import *
 from tkinter import filedialog
 from tkinter import messagebox
