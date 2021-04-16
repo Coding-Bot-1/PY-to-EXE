@@ -1,10 +1,8 @@
 # PY-to-EXE
 Simple and easy way to convert Python files to standalone EXEs
 
-Thank you for downloading the Python to EXE Convertor
-
-Important Notes:
+## Important Notes
 - Your ico/py file cannot have spaces
 - If you are running into issues, email me at crazyCoder1123@outlook.com
-- untick the console checkbox if you have a GUI program (Kivy, PyQt5, Tkinter, Pygame, etc.)
-## df 
+- untick the console checkbox if you have a GUI program (not recommended for console-based programs)
+- Feel free to use it/modify it however you want, but please keep lines 1-1
