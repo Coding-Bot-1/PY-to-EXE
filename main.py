@@ -1,5 +1,5 @@
 # Made by person569
-# https://github.com/person569/PY-to-EXE
+# https://github.com/Coding-Bot-1/PY-to-EXE
 
 from tkinter import *
 from tkinter import filedialog
