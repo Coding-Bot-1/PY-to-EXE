@@ -8,6 +8,8 @@ import os
 import shutil
 import threading
 from time import sleep
+import PyInstaller.__main__
+import platform
 
 
 class PythonToEXE:
@@ -117,19 +119,13 @@ class PythonToEXE:
     def set_up_pyinstaller_command(self):
         # Run the command
         os.chdir(self.remove_file_name(self.file_directory))
-        command = "pyinstaller"
-
-        command = command + ' --onefile'
-
-        if not self.console_check.get():
-            command = command + ' --windowed'
-
+        cmdargs = [f"{self.get_file_name(self.file_directory)}", '--onefile']
+        if self.console_check.get():
+            cmdargs.append('--windowed')
         if self.icon_check.get():
-            command = command + f' --icon="{self.get_file_name(self.icon_directory)}"'
-
-        print(f'{command} "{self.get_file_name(self.file_directory)}"')
-        threading.Thread(
-            target=lambda: self.convert_to_exe(f"{command} {self.get_file_name(self.file_directory)}")).start()
+            cmdargs.append(f'--icon="{self.get_file_name(self.icon_directory)}"')
+        print(' '.join(cmdargs))
+        threading.Thread(target=lambda: self.convert_to_exe(cmdargs)).start()
 
     def convert_to_exe(self, command):
         # Disable all the widgets
@@ -149,7 +145,7 @@ class PythonToEXE:
         self.convert_to_exe_button.config(cursor="wait")
 
         self.converting = True
-        self.run_command(f"{command} {self.get_file_name(self.file_directory)}")
+        PyInstaller.__main__.run(command)
 
         try:
             # Remove useless files
@@ -160,9 +156,9 @@ class PythonToEXE:
 
             # Move the exe from the dist folder to the folder of the Python file
             TO = self.remove_file_name(self.file_directory)
+            exe_name = '.exe' if platform.system() == 'Windows' else ''
             shutil.move(self.remove_file_name(self.file_directory) + '/dist/' +
-                        self.get_file_name(self.file_directory)[:-3] + '.exe', TO)
-
+                        self.get_file_name(self.file_directory)[:-3] + exe_name, TO)
             shutil.rmtree(self.remove_file_name(self.file_directory) + '/dist')
 
             print("Finished Converting Python to EXE")
@@ -206,9 +202,6 @@ class PythonToEXE:
             self.label_icon_file.place_forget()
 
         root.after(1, self.disable_enable)
-
-    def run_command(self, command):
-        os.system(f'cmd /c "{command}"')
 
     def remove_file_name(self, directory):
         count = 0
