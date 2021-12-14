@@ -1,5 +1,5 @@
-# Made by Coding-Bot-1
-# https://github.com/Coding-Bot-1/PY-to-EXE
+# Made by CubingSoda
+# https://github.com/CubingSoda/PY-to-EXE
 
 from tkinter import *
 from tkinter import filedialog
